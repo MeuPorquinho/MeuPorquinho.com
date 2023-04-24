@@ -1,4 +1,5 @@
 # MeuPorquinho.com
+<<<<<<< HEAD
 
 Welcome to MeuPorquinho.com, a personal finance management college project! This is a MERN stack project, which means it's built using MongoDB, Express, React, and Node.js. This project is designed to help users manage their personal finances by allowing them to track their income and expenses, create budgets, and view reports.
 
@@ -20,3 +21,6 @@ View reports to see the overall financial status and trends
 
 License:
 This project is licensed under the MIT License. Feel free to use it for personal or commercial purposes.
+=======
+Web App created for a college project
+>>>>>>> 1460f247019eef816c67de8545a32b2f6f294120
