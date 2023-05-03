@@ -11,7 +11,7 @@ const Home = () =>{
             <Link to="/management">Controladoria</Link>
           </li>
           <li>
-            <Link to="/user">Usuario</Link>
+            <Link to="/user">Usuário</Link>
           </li>
         </ul>
       </nav>
