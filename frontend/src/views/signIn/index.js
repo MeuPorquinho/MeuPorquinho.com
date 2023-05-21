@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import Header from '../home/components/header';
 
@@ -7,6 +8,7 @@ const RegistrationPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [errorRequest, setErrorRequest] = useState(false);
   const navigate = useNavigate();
 
   const handlePasswordChange = (e) => {
@@ -35,14 +37,32 @@ const RegistrationPage = () => {
     console.log('Sobrenome:', e.target.elements.lastName.value);
     console.log('Email:', e.target.elements.email.value);
     console.log('Senha:', password);
-
-    navigate("/dashboard")
+  
+    axios.post("http://localhost:5000/user/register", {
+      "username": e.target.elements.email.value,
+      "firstName": e.target.elements.name.value,
+      "lastName": e.target.elements.lastName.value,
+      "password": password,
+    })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);  
+        let statusCode = res.status;
+        if(statusCode === 201) {
+          navigate("/dashboard")
+        }     
+    }).catch(e => {
+        console.log(e);
+        setErrorRequest(true);
+    });
   };
 
   return (
     <>
       <Header/>
+      {errorRequest && <p className="text-red-500 mt-2">Erro ao cadastrar usuário.</p>}
       <div className="flex items-center justify-center mt-5 h-200 bg-white">
+        
         <form
           onSubmit={handleSubmit}
           className="bg-black rounded-lg px-20 p-8 max-w-lg w-1000"

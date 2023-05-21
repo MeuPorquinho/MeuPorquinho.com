@@ -31,7 +31,7 @@ module.exports = {
 
     async register(req, res) {
         try {
-            const { username, password } = req.body;
+            const { username, firstName, lastName, password,  } = req.body;
 
             const collection = await databaseConnect();
             const userExists = await collection.findOne({ username });
@@ -39,7 +39,7 @@ module.exports = {
             if (userExists) {
                 return res.status(409).json({ message: 'Usuário já cadastrado' });
             } else {
-                const result = await collection.insertOne({ username, password });
+                const result = await collection.insertOne({ username, firstName, lastName, password });
 
                 return res.status(201).json({ message: 'Usuário cadastrado com sucesso' });
             }

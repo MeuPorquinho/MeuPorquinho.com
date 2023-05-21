@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Header from '../home/components/header';
+import axios from "axios";
 
 const LogIn = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [errorRequest, setErrorRequest] = useState(false);
   const navigate = useNavigate();
 
   const handlePasswordChange = (e) => {
@@ -21,8 +23,23 @@ const LogIn = () => {
     console.log('Dados do formulário enviados:');
     console.log('Email:', e.target.elements.email.value);
     console.log('Senha:', password);
-    
-    navigate("/dashboard")
+
+
+    axios.post("http://localhost:5000/user/login", {
+      "username": e.target.elements.email.value,
+      "password": password,
+    })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);  
+        let statusCode = res.status;
+        if(statusCode === 200) {
+          navigate("/dashboard")
+        }     
+    }).catch(e => {
+        console.log(e);
+        setErrorRequest(true);
+    });
   };
 
   return (

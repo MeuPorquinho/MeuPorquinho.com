@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from "axios";
 
 const Dashboard = () => {
   const [password, setPassword] = useState('');
@@ -23,6 +24,7 @@ const Dashboard = () => {
     console.log('Dados do formulário enviados:');
     console.log('Email:', e.target.elements.email.value);
     console.log('Senha:', password);
+
   };
 
   return (
