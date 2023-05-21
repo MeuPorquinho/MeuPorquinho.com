@@ -37,7 +37,7 @@ const RegistrationPage = () => {
   return (
     <>
       <Header/>
-      <div className="flex items-center justify-center h-screen bg-white">
+      <div className="flex items-center justify-center mt-5 h-200 bg-white">
         <form
           onSubmit={handleSubmit}
           className="bg-black rounded-lg px-20 p-8 max-w-lg w-1000"

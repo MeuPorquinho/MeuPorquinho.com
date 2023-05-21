@@ -23,7 +23,7 @@ const Main = () => {
             Comece agora a controlar seus gastos!
           </a>
           <a
-            href="/login"
+            href="/logIn"
             className="px-8 py-4 bg-gray-300 text-gray-800 rounded-md font-bold text-lg hover:bg-gray-400 transition-colors"
           >
             Já é cadastrado? Faça login
