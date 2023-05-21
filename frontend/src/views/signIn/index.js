@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import Header from '../home/components/header';
 
 const RegistrationPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const navigate = useNavigate();
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
@@ -32,6 +35,8 @@ const RegistrationPage = () => {
     console.log('Sobrenome:', e.target.elements.lastName.value);
     console.log('Email:', e.target.elements.email.value);
     console.log('Senha:', password);
+
+    navigate("/dashboard")
   };
 
   return (

@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import Header from '../home/components/header';
 
-const LogIn = () => {
+const Dashboard = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const navigate = useNavigate();
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
@@ -17,23 +14,25 @@ const LogIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (password !== confirmPassword) {
+      setPasswordError('As senhas não correspondem.');
+      return;
+    }
+
     // Lógica de envio do formulário
     console.log('Dados do formulário enviados:');
     console.log('Email:', e.target.elements.email.value);
     console.log('Senha:', password);
-    
-    navigate("/dashboard")
   };
 
   return (
     <>
-      <Header/>
       <div className="flex items-center justify-center  mt-5 h-200 bg-white">
         <form
           onSubmit={handleSubmit}
           className="bg-black rounded-lg px-20 p-8 max-w-lg"
         >
-          <h2 className="text-2xl font-bold mb-2 text-center text-white">Entrar</h2>
+          <h2 className="text-2xl font-bold mb-2 text-center text-white">Dashboard test</h2>
           <div className="mb-2">
             <label htmlFor="email" className="block mb-2 text-white">
               Email
@@ -72,4 +71,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default Dashboard;
