@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
-import axios from "axios";
+import React, { useState, useContext, useEffect } from 'react';
+import UserContext from '../../context/UserContext';
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(user){
+      console.log('User: ', user);
+    } else {
+      navigate("/login")
+    }
+  }, [user]);
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
@@ -19,11 +30,6 @@ const Dashboard = () => {
       setPasswordError('As senhas não correspondem.');
       return;
     }
-
-    // Lógica de envio do formulário
-    console.log('Dados do formulário enviados:');
-    console.log('Email:', e.target.elements.email.value);
-    console.log('Senha:', password);
 
   };
 

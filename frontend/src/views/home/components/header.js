@@ -8,7 +8,7 @@ const Header = () => {
           <img
             src="https://i.imgur.com/gkAgCgk.png"
             alt="Logo Meu Porquinho"
-            className="w-14 h-auto mr-4"
+            className="w-10 h-12 mr-4"
           />
           <h1 className="ml-4 text-xl font-bold text-white">Meu Porquinho</h1>
         </div>

@@ -1,6 +1,7 @@
 const { MongoClient } = require('mongodb');
 const uri = process.env.ATLAS_URI;
 const client = new MongoClient(uri);
+const bcrypt = require('bcrypt');
 
 async function databaseConnect() {
     await client.connect();
@@ -14,10 +15,12 @@ module.exports = {
             const { username, password } = req.body;
 
             const collection = await databaseConnect();
-            const user = await collection.findOne({ username, password });
+            const user = await collection.findOne({ username });
+            const isPasswordValid = await bcrypt.compare(password, user.password);
 
-            if (user) {
-                return res.status(200).json({ message: 'Login efetuado com sucesso' });
+            if (isPasswordValid) {
+                delete user.password;
+                return res.status(200).json({ user: user, message: 'Login efetuado com sucesso' });
             } else {
                 return res.status(401).json({ message: 'Usuário ou senha inválidos' });
             }
@@ -39,9 +42,12 @@ module.exports = {
             if (userExists) {
                 return res.status(409).json({ message: 'Usuário já cadastrado' });
             } else {
-                const result = await collection.insertOne({ username, firstName, lastName, password });
+                const hashedPassword = await bcrypt.hash(password, 10);
+                await collection.insertOne({ username, firstName, lastName, password: hashedPassword });
 
-                return res.status(201).json({ message: 'Usuário cadastrado com sucesso' });
+                const user = await collection.findOne({ username, password: hashedPassword });
+                delete user.password;
+                return res.status(201).json({ user: user, message: 'Usuário cadastrado com sucesso' });
             }
         } catch (error) {
             console.error(error);

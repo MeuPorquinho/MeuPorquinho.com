@@ -30,7 +30,36 @@ const Main = () => {
           </a>
         </div>
       </div>
-      
+      <hr className="my-16" />
+      <section className="mt-16">
+        <h2 className="text-xl mb-16 text-center w-43">
+          A Meu Porquinho esta aqui para facilitar o seu dia a dia, visualize algumas fotos de nosso dashboard!
+        </h2>
+        <div className="flex justify-center">
+          <div className="grid grid-cols-4 gap-4">
+            <img
+              src="https://example.com/screenshot1.png"
+              alt="Screenshot 1"
+              className="rounded-lg"
+            />
+            <img
+              src="https://example.com/screenshot2.png"
+              alt="Screenshot 2"
+              className="rounded-lg"
+            />
+            <img
+              src="https://example.com/screenshot3.png"
+              alt="Screenshot 3"
+              className="rounded-lg"
+            />
+            <img
+              src="https://example.com/screenshot3.png"
+              alt="Screenshot 4"
+              className="rounded-lg"
+            />
+          </div>
+        </div>
+      </section>
     </main>
   );
 };
