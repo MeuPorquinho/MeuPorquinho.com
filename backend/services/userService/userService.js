@@ -34,7 +34,7 @@ module.exports = {
 
     async register(req, res) {
         try {
-            const { username, firstName, lastName, password,  } = req.body;
+            const { username, firstName, lastName, password, } = req.body;
 
             const collection = await databaseConnect();
             const userExists = await collection.findOne({ username });
@@ -66,6 +66,22 @@ module.exports = {
         } catch (error) {
             console.error(error);
             return res.status(500).json({ message: 'Erro ao buscar usuários' });
+        } finally {
+            await client.close();
+        }
+    },
+
+    async deleteUser(req, res) {
+        try {
+            const { username } = req.params;
+
+            const collection = await databaseConnect();
+            await collection.deleteOne({ username });
+
+            return res.status(200).json({ message: 'Usuário deletado com sucesso' });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Erro ao deletar usuário' });
         } finally {
             await client.close();
         }
