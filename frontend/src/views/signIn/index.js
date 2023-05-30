@@ -4,6 +4,7 @@ import api from "../../service/generalService";
 import UserContext from '../../context/UserContext';
 import Header from '../home/components/header';
 import Footer from '../home/components/footer';
+import { isPasswordStrong } from '../../utils/utils';
 
 const RegistrationPage = () => {
   const [password, setPassword] = useState('');
@@ -28,6 +29,11 @@ const RegistrationPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!isPasswordStrong(password)) {
+      setPasswordError('A senha deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial.');
+      return;
+    }
+
     if (password !== confirmPassword) {
       setPasswordError('As senhas não correspondem.');
       return;
@@ -42,11 +48,11 @@ const RegistrationPage = () => {
       })
       console.log(response);
       let statusCode = response.status;
-        if(statusCode === 201) {
-          const userDate = response.data.user;
-          setUser(userDate);
-          navigate("/dashboard")
-        }     
+      if (statusCode === 201) {
+        const userDate = response.data.user;
+        setUser(userDate);
+        navigate("/dashboard")
+      }
     } catch (error) {
       console.log(e);
       setErrorRequest(true);
@@ -56,7 +62,7 @@ const RegistrationPage = () => {
   return (
     <>
       <div className="flex flex-col min-h-screen">
-        <Header/>
+        <Header />
         {errorRequest && <p className="text-red-500 mt-2">Erro ao cadastrar usuário.</p>}
         <div className="flex-grow flex items-center justify-center mt-5 mb-5 h-200 bg-white">
           <form
@@ -137,7 +143,7 @@ const RegistrationPage = () => {
             </button>
           </form>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </>
   );
