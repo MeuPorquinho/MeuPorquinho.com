@@ -15,7 +15,7 @@ module.exports = {
             const { username, password } = req.body;
 
             const collection = await databaseConnect();
-            const user = await collection.findOne({ username });
+            const user = await collection.findOne({ username: { $eq: username } });
             const isPasswordValid = await bcrypt.compare(password, user.password);
 
             if (isPasswordValid) {
