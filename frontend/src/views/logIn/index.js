@@ -26,7 +26,7 @@ const LogIn = () => {
     try {
       const response = await api('/user/login', 'POST', {
         "username": e.target.elements.email.value,
-        "password": password,
+        "password": e.target.elements.password.value,
       })
 
       let statusCode = response.status;
@@ -77,6 +77,13 @@ const LogIn = () => {
                 required
               />
             </div>
+            {errorRequest && (
+              <>
+                <div className="text-red-500 text-sm mb-2">
+                  Email ou senha incorretos
+                </div>
+              </>
+            )}
             <button
               type="submit"
               className="mt-4 w-full py-2 bg-rose-300 text-white rounded-md font-bold text-lg hover:bg-rose-500 transition-colors"
