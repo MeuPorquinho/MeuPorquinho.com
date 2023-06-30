@@ -11,7 +11,7 @@ const SideMenu = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="flex flex-col min-h-screen ">
+        <div className="absolute flex flex-col min-h-screen ">
             <div className="bg-[#252525] w-72 min-h-screen items-center justify-center">
                 <img
                     src="https://i.imgur.com/gkAgCgk.png"
