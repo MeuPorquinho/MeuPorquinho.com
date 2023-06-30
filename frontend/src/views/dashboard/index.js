@@ -14,11 +14,11 @@ const Dashboard = () => {
     } else {
       navigate("/login")
     }
-  }, [user]);
+  }, [user, navigate]);
 
   useEffect(() => {
     console.log(location.pathname);
-  }, []);
+  }, [location.pathname]);
 
   return (
     <>
