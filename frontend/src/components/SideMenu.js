@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import UserContext from '../context/UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+
 
 const SideMenu = () => {
     const { user } = useContext(UserContext);
     const location = useLocation();
+    const navigate = useNavigate();
 
     return (
         <div className="flex flex-col min-h-screen ">
@@ -22,9 +24,9 @@ const SideMenu = () => {
                 <ul className="pt-10 flex flex-col space-y-6 text-center">
                     <li>
                         <div className={location.pathname === '/dashboard' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
-                            <a href="/dashboard" className="text-gray-300 hover:text-white text-lg">
+                            <button onClick={() => {navigate('/dashboard')}} className="text-gray-300 hover:text-white text-lg">
                                 Dashboard
-                            </a>
+                            </button>
                         </div>
                     </li>
                     <li>
@@ -35,10 +37,10 @@ const SideMenu = () => {
                         </div>
                     </li>
                     <li>
-                        <div className={location.pathname === '/gerenciador' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
-                            <a href="/manager" className="text-gray-300 hover:text-white text-lg">
+                        <div className={location.pathname === '/manager' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
+                            <button onClick={() => {navigate('/manager')}} className="text-gray-300 hover:text-white text-lg">
                                 Gerenciador
-                            </a>
+                            </button>
                         </div>
                     </li>
                 </ul>
@@ -48,11 +50,11 @@ const SideMenu = () => {
                         <FontAwesomeIcon icon={icon({ name: 'user' })} style={{ color: 'white' }} />
 
                         <div className="pt-1">
-                            <p className="text-gray-300 text-lg">{user.firstName + ' ' + user.lastName}</p>
+                            <p className="text-gray-300 text-lg">{user?.firstName + ' ' + user?.lastName}</p>
                         </div>
 
                         <div className="pt-1">
-                            <p className="text-gray-400 text-sm">{user.username}</p>
+                            <p className="text-gray-400 text-sm">{user?.username}</p>
                         </div>
                     </div>
                 </div>

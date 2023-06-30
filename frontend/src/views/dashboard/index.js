@@ -21,7 +21,13 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <SideMenu />
+    <>
+      <SideMenu />
+      <div className="abslute top-0 ml-10 bg-black">
+          <h1>Dashboard</h1>
+      </div>
+
+    </>
   );
 };
 
