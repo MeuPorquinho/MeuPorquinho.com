@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = () => {
   return (
-    <header className="bg-black">
+    <header className="bg-[#252525]">
       <nav className="flex items-center justify-between p-3">
         <div className="ml-4 flex items-center">
           <img

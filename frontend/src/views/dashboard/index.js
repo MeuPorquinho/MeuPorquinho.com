@@ -1,13 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
 import UserContext from '../../context/UserContext';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+
 
 const Dashboard = () => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if(user){
@@ -17,65 +18,56 @@ const Dashboard = () => {
     }
   }, [user]);
 
-  const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-    setPasswordError('');
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (password !== confirmPassword) {
-      setPasswordError('As senhas não correspondem.');
-      return;
-    }
-
-  };
+  useEffect(() => {
+    console.log(location.pathname);
+  }, []);
 
   return (
-    <>
-      <div className="flex items-center justify-center  mt-5 h-200 bg-white">
-        <form
-          onSubmit={handleSubmit}
-          className="bg-black rounded-lg px-20 p-8 max-w-lg"
-        >
-          <h2 className="text-2xl font-bold mb-2 text-center text-white">Dashboard test</h2>
-          <div className="mb-2">
-            <label htmlFor="email" className="block mb-2 text-white">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              required
-            />
+    <div className="flex flex-col min-h-screen">
+      <div className="bg-[#252525] w-72 min-h-screen items-center">
+        <img
+          src="https://i.imgur.com/gkAgCgk.png"
+          alt="Meu Porquinho logo"
+          className="h-[150px] pl-24 pt-2 pb-2 content-center"
+        />
+        <h1 className="text-2xl font-bold mb-2 text-center text-white">
+          Meu Porquinho.com
+        </h1>
+        <ul className="pt-10 flex flex-col space-y-6 text-center">
+          <li>
+            <div className={location.pathname === '/dashboard' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
+              <a href="/dashboard" className="text-gray-300 hover:text-white text-lg">
+                Dashboard
+              </a>
+            </div>
+          </li>
+          <li>
+            <div className={location.pathname === '/noticias' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
+              <a href="/dashboard" className="text-gray-300 hover:text-white text-lg">
+                Notícias
+              </a>
+            </div>
+          </li>
+          <li>
+            <div className={location.pathname === '/gerenciador' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
+              <a href="/dashboard" className="text-gray-300 hover:text-white text-lg">
+                Gerenciador
+              </a>
+            </div>
+          </li>
+        </ul>
+
+        <div className="absolute bottom-0">
+          <div className="flex items-center justify-center">
+            {/* <FontAwesomeIcon icon={icon({name: 'user-secret'})} /> */}
+            <div className="ml-2">
+              <p className="text-gray-300 text-lg">{user.firstName + ' ' + user.lastName}</p>
+              <p className="text-white text-sm font-bold">{user.email}</p>
+            </div>
           </div>
-          <div className="mb-2">
-            <label htmlFor="password" className="block mb-2 text-white">
-              Senha
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              value={password}
-              onChange={handlePasswordChange}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="mt-4 w-full py-2 bg-rose-300 text-white rounded-md font-bold text-lg hover:bg-rose-500 transition-colors"
-          >
-            Entrar
-          </button>
-        </form>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -6,6 +6,7 @@ import api from "../../service/generalService";
 import UserContext from '../../context/UserContext';
 
 const LogIn = () => {
+  const ref = React.useRef(null);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -45,7 +46,7 @@ const LogIn = () => {
     <>
       <div className="flex flex-col min-h-screen">
         <Header/>
-        <div className="flex-grow flex items-center justify-center  mt-5 h-200 bg-white">
+        <div className="flex-grow flex items-center justify-center  mt-5 h-200 bg-white" ref={ref}>
           <form
             onSubmit={handleSubmit}
             className="bg-black rounded-lg px-20 p-8 max-w-lg"
