@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import UserContext from '../../context/UserContext';
 import { useNavigate, useLocation } from "react-router-dom";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 
 const Dashboard = () => {
@@ -23,8 +23,8 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="bg-[#252525] w-72 min-h-screen items-center">
+    <div className="flex flex-col min-h-screen ">
+      <div className="bg-[#252525] w-72 min-h-screen items-center justify-center">
         <img
           src="https://i.imgur.com/gkAgCgk.png"
           alt="Meu Porquinho logo"
@@ -57,12 +57,16 @@ const Dashboard = () => {
           </li>
         </ul>
 
-        <div className="absolute bottom-0">
-          <div className="flex items-center justify-center">
-            {/* <FontAwesomeIcon icon={icon({name: 'user-secret'})} /> */}
-            <div className="ml-2">
+        <div className="absolute bottom-0 w-72 pb-10">
+          <div className="flex flex-col items-center justify-center">
+            <FontAwesomeIcon icon={icon({name: 'user'})} style={{ color: 'white' }}/>
+
+            <div className="pt-1">
               <p className="text-gray-300 text-lg">{user.firstName + ' ' + user.lastName}</p>
-              <p className="text-white text-sm font-bold">{user.email}</p>
+            </div>
+
+            <div className="pt-1">
+              <p className="text-gray-400 text-sm">{user.username}</p>
             </div>
           </div>
         </div>
