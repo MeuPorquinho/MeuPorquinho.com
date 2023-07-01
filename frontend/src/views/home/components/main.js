@@ -3,7 +3,7 @@ import React from 'react';
 const Main = () => {
   return (
     <main className="container mx-auto p-8">
-      <h1 className="text-4xl font-bold mb-4 text-left text-gray-900">
+      <h1 className="text-4xl font-bold mb-4 text-left text-gray-900 font-plus-jakarta-sans">
         Bem-vindo ao <span className="text-rose-300">Meu Porquinho</span>!
       </h1>
       <div className="flex justify-center">
@@ -12,7 +12,7 @@ const Main = () => {
           alt="Controle de gastos"
           className="max-w-lg	 h-auto"
         />
-        <div className="ml-40 pt-40 flex flex-col items-center">
+        <div className="ml-40 pt-40 flex flex-col items-center font-dm-sans">
           <p className="text-lg mb-8 text-center w-43">
             O Meu Porquinho é a ferramenta perfeita para ajudar você a controlar seus gastos de forma simples e eficiente.
           </p>

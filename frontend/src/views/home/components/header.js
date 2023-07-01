@@ -10,20 +10,20 @@ const Header = () => {
             alt="Logo Meu Porquinho"
             className="w-10 h-12 mr-4"
           />
-          <h1 className="ml-4 text-xl font-bold text-white">Meu Porquinho</h1>
+          <h1 className="ml-2 text-xl font-bold text-white font-plus-jakarta-sans">Meu Porquinho</h1>
         </div>
         <ul className="flex space-x-4 mr-20">
           <li>
-            <a href="/" className="text-gray-300 hover:text-white text-lg">Início</a>
+            <a href="/" className="text-gray-300 hover:text-white text-lg font-plus-jakarta-sans">Início</a>
           </li>
           <li>
-            <a href="/sobre" className="text-gray-300 hover:text-white text-lg">Sobre</a>
+            <a href="/sobre" className="text-gray-300 hover:text-white text-lg font-plus-jakarta-sans">Sobre</a>
           </li>
           <li>
-            <a href="/logIn" className="text-gray-300 hover:text-white text-lg">Entrar</a>
+            <a href="/logIn" className="text-gray-300 hover:text-white text-lg font-plus-jakarta-sans">Entrar</a>
           </li>
           <li>
-            <a href="/signIn" className="text-gray-300 hover:text-white text-lg">Cadastre-se</a>
+            <a href="/signIn" className="text-gray-300 hover:text-white text-lg font-plus-jakarta-sans">Cadastre-se</a>
           </li>
         </ul>
       </nav>

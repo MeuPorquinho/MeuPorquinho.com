@@ -51,28 +51,28 @@ const LogIn = () => {
             onSubmit={handleSubmit}
             className="bg-black rounded-lg px-20 p-8 max-w-lg"
           >
-            <h2 className="text-2xl font-bold mb-2 text-center text-white">Entrar</h2>
+            <h2 className="text-2xl font-bold mb-2 text-center text-white font-plus-jakarta-sans">Entrar</h2>
             <div className="mb-2">
-              <label htmlFor="email" className="block mb-2 text-white">
+              <label htmlFor="email" className="block mb-2 text-white font-dm-sans">
                 Email
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md font-dm-sans"
                 required
               />
             </div>
             <div className="mb-2">
-              <label htmlFor="password" className="block mb-2 text-white">
+              <label htmlFor="password" className="block mb-2 text-white font-dm-sans">
                 Senha
               </label>
               <input
                 type="password"
                 id="password"
                 name="password"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md font-dm-sans"
                 value={password}
                 onChange={handlePasswordChange}
                 required
@@ -80,14 +80,14 @@ const LogIn = () => {
             </div>
             {errorRequest && (
               <>
-                <div className="text-red-500 text-sm mb-2">
+                <div className="text-red-500 text-sm mb-2 font-dm-sans">
                   Email ou senha incorretos
                 </div>
               </>
             )}
             <button
               type="submit"
-              className="mt-4 w-full py-2 bg-rose-300 text-white rounded-md font-bold text-lg hover:bg-rose-500 transition-colors"
+              className="font-dm-sans mt-4 w-full py-2 bg-rose-300 text-white rounded-md font-bold text-lg hover:bg-rose-500 transition-colors"
             >
               Entrar
             </button>

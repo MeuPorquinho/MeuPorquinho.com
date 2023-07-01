@@ -10,10 +10,14 @@ import {
   Title,
   Tooltip,
   Legend,
+  ArcElement,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { Doughnut } from 'react-chartjs-2';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 ChartJS.register(
   CategoryScale,
@@ -75,12 +79,69 @@ const Dashboard = () => {
     }
   }, [user, navigate]);
 
+
+  const dataAtividades = {
+    labels: ['Red', 'Blue', 'Yellow'],
+    datasets: [
+      {
+        data: [12, 19, 3],
+        backgroundColor: [
+          'rgba(238, 191, 4, 1)',
+          'rgba(255, 153, 153, 1)',
+          'rgba(255, 206, 86, 0.2)',
+        ],
+        borderColor: [
+          'rgba(238, 191, 4, 1)',
+          'rgba(255, 153, 153, 1)',
+          'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+
+  const optionsVertical = {
+    indexAxis: 'y',
+    responsive: true,
+    legend: {
+      display: false
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false
+        }
+      },
+      y: {
+        grid: {
+          display: false
+        }
+      }
+    },
+  };
+
+  const labelsVertical = ['Mês Atual', 'Mês Anterior'];
+
+  const dataVertical = {
+    labels: labelsVertical,
+    datasets: [
+      {
+        label: 'R$',
+        data: [300, 50],
+        borderColor: 'rgba(245, 247, 249, 1)',
+        hoverBackgroundColor: 'rgba(238, 191, 4, 1)',
+        backgroundColor: 'rgba(41, 41, 41, 1)',
+      },
+    ],
+  };
+
   return (
     <div className="flex">
       <SideMenu />
       <div className="ml-10 pr-10">
         <div className="pt-10 h-20 pb-4 flex items-center">
-          <h1 className="pl-4 text-[32px] font-bold font-plus-jakarta-sans">Bem Vindo à sua Dashboard!</h1>
+          <h1 className="pl-4 text-[32px] font-bold font-plus-jakarta-sans">Dashboard</h1>
         </div>
         <div className="flex flex-row flex-wrap items-center">
           <div className="w-[240px] h-[200px] bg-[#292929] rounded-xl shadow-lg m-5 flex justify-center items-center">
@@ -110,8 +171,14 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="flex flex-col max-w-screen-sm">
-        <div className="bg-[#252525]  min-h-screen w-20 items-center justify-center">
-          <h1>TEst</h1>
+        <div className="pt-32 h-20 pb-4 flex justify-center items-center">
+          <h1 className="text-[32px] font-bold font-dm-sans">Atividade</h1>
+        </div>
+        <div className="pt-2">
+            <Doughnut data={dataAtividades} />
+        </div>
+        <div className="mt-6 flex flex-col items-center bg-[#F5F7F9]">
+          <Bar options={optionsVertical} data={dataVertical} />
         </div>
       </div> 
     </div>
