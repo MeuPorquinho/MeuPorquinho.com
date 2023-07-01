@@ -69,75 +69,75 @@ const RegistrationPage = () => {
             onSubmit={handleSubmit}
             className="bg-black rounded-lg px-20 p-8 max-w-lg w-1000"
           >
-            <h2 className="text-2xl font-bold mb-2 text-center text-white">Cadastro</h2>
+            <h2 className="text-2xl font-bold mb-2 text-center text-white font-plus-jakarta-sans">Cadastro</h2>
             <div className="mb-2">
-              <label htmlFor="name" className="block mb-2 text-white">
+              <label htmlFor="name" className="block mb-2 text-white font-dm-sans">
                 Nome
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md font-dm-sans"
                 required
               />
             </div>
             <div className="mb-2">
-              <label htmlFor="lastName" className="block mb-2 text-white">
+              <label htmlFor="lastName" className="block mb-2 text-white font-dm-sans">
                 Sobrenome
               </label>
               <input
                 type="text"
                 id="lastName"
                 name="lastName"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md font-dm-sans"
                 required
               />
             </div>
             <div className="mb-2">
-              <label htmlFor="email" className="block mb-2 text-white">
+              <label htmlFor="email" className="block mb-2 text-white font-dm-sans">
                 Email
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md font-dm-sans"
                 required
               />
             </div>
             <div className="mb-2">
-              <label htmlFor="password" className="block mb-2 text-white">
+              <label htmlFor="password" className="block mb-2 text-white font-dm-sans">
                 Senha
               </label>
               <input
                 type="password"
                 id="password"
                 name="password"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md font-dm-sans"
                 value={password}
                 onChange={handlePasswordChange}
                 required
               />
             </div>
             <div className="mb-2">
-              <label htmlFor="confirmPassword" className="block mb-2 text-white">
+              <label htmlFor="confirmPassword" className="block mb-2 text-white font-dm-sans">
                 Confirme a Senha
               </label>
               <input
                 type="password"
                 id="confirmPassword"
                 name="confirmPassword"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md font-dm-sans"
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
                 required
               />
-              {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
+              {passwordError && <p className="text-red-500 mt-2 font-dm-sans">{passwordError}</p>}
             </div>
             <button
               type="submit"
-              className="mt-4 w-full py-2 bg-rose-300 text-white rounded-md font-bold text-lg hover:bg-rose-500 transition-colors"
+              className="font-dm-sans mt-4 w-full py-2 bg-rose-300 text-white rounded-md font-bold text-lg hover:bg-rose-500 transition-colors"
             >
               Cadastrar
             </button>
