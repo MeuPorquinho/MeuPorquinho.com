@@ -12,12 +12,9 @@ const Header = () => {
           />
           <h1 className="ml-2 text-xl font-bold text-white font-plus-jakarta-sans">Meu Porquinho</h1>
         </div>
-        <ul className="flex space-x-4 mr-20">
+        <ul className="flex space-x-4 mr-2">
           <li>
             <a href="/" className="text-gray-300 hover:text-white text-lg font-plus-jakarta-sans">Início</a>
-          </li>
-          <li>
-            <a href="/sobre" className="text-gray-300 hover:text-white text-lg font-plus-jakarta-sans">Sobre</a>
           </li>
           <li>
             <a href="/logIn" className="text-gray-300 hover:text-white text-lg font-plus-jakarta-sans">Entrar</a>
