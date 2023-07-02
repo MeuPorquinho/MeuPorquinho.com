@@ -57,6 +57,31 @@ module.exports = {
         }
     },
 
+    async saveFinances(req, res) {
+        try {
+            const collection = await databaseConnect();
+            const { body } = req;
+            const { username } = req.query;
+
+            if (!username) {
+                return res.status(400).json({ message: 'Usuário não informado' });
+            }
+
+            await collection.updateOne({ username }, {
+                $set: {
+                    finances: body
+                }
+            });
+
+            return res.status(200).json({ message: 'Finanças salvas com sucesso' });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Erro ao salvar finanças' });
+        } finally {
+            await client.close();
+        }
+    },
+
     async getUsers(req, res) {
         try {
             const collection = await databaseConnect();
