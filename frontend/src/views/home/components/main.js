@@ -33,28 +33,23 @@ const Main = () => {
       <hr className="my-16" />
       <section className="mt-16">
         <h2 className="text-xl mb-16 text-center w-43">
-          A Meu Porquinho esta aqui para facilitar o seu dia a dia, visualize algumas fotos de nosso dashboard!
+          A Meu Porquinho esta aqui para facilitar o seu dia a dia, visualize algumas fotos do nosso produto:
         </h2>
         <div className="flex justify-center">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             <img
-              src="https://example.com/screenshot1.png"
-              alt="Screenshot 1"
+              src="https://i.imgur.com/YmCP1aQ.png"
+              alt="Dashboard"
               className="rounded-lg"
             />
             <img
-              src="https://example.com/screenshot2.png"
-              alt="Screenshot 2"
+              src="https://i.imgur.com/CdMSr0A.png"
+              alt="Manager"
               className="rounded-lg"
             />
             <img
-              src="https://example.com/screenshot3.png"
-              alt="Screenshot 3"
-              className="rounded-lg"
-            />
-            <img
-              src="https://example.com/screenshot3.png"
-              alt="Screenshot 4"
+              src="https://i.imgur.com/ASOByMs.png"
+              alt="News"
               className="rounded-lg"
             />
           </div>
