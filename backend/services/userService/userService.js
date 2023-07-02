@@ -60,16 +60,37 @@ module.exports = {
     async saveFinances(req, res) {
         try {
             const collection = await databaseConnect();
-            const { body } = req;
-            const { username } = req.query;
+            let { bankBalance, savedMoney, foodCost, houseCost, transportCost } = req.body;
+            const { username, month } = req.query;
 
             if (!username) {
                 return res.status(400).json({ message: 'Usuário não informado' });
             }
 
+            if (!month) {
+                return res.status(400).json({ message: 'Mês não informado' });
+            }
+
+            const userInfo = await collection.findOne({ username });
+            const actualMonthFinances = userInfo.finances[month];
+
+            if (actualMonthFinances) {
+                bankBalance = bankBalance + actualMonthFinances.bankBalance;
+                savedMoney = savedMoney + actualMonthFinances.savedMoney;
+                foodCost = foodCost + actualMonthFinances.foodCost;
+                houseCost = houseCost + actualMonthFinances.houseCost;
+                transportCost = transportCost + actualMonthFinances.transportCost;
+            }
+
             await collection.updateOne({ username }, {
                 $set: {
-                    finances: body
+                    [`finances.${month}`]: {
+                        bankBalance,
+                        savedMoney,
+                        foodCost,
+                        houseCost,
+                        transportCost
+                    }
                 }
             });
 
