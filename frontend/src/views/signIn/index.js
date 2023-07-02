@@ -5,6 +5,7 @@ import UserContext from '../../context/UserContext';
 import Header from '../home/components/header';
 import Footer from '../home/components/footer';
 import { isPasswordStrong } from '../../utils/utils';
+import Swal from 'sweetalert2'
 
 const RegistrationPage = () => {
   const [password, setPassword] = useState('');
@@ -39,6 +40,11 @@ const RegistrationPage = () => {
       return;
     }
 
+    const lgpdTermsAccepted = await lgpdTermsModal(e.target.elements);
+    if (!lgpdTermsAccepted) {
+      return;
+    };
+
     try {
       const response = await api('/user/register', 'POST', {
         "username": e.target.elements.email.value,
@@ -57,7 +63,45 @@ const RegistrationPage = () => {
       console.log(e);
       setErrorRequest(true);
     }
-  };
+  }
+
+  const lgpdTermsModal = async (data) => {
+    const name = data.name.value;
+    const lastName = data.lastName.value;
+
+    const accepted = await Swal.fire({
+      title: '<strong class="text-white">Termos de Uso</strong>',
+      titleColor: '#fff',
+      html: `
+        <div class="text-left">
+          <p class="text-white">Eu, ${name} ${lastName}, declaro que li e concordo com os termos desta política de privacidade. Autorizo expressamente a coleta, armazenamento, processamento e compartilhamento dos meus dados pessoais fornecidos neste formulário para as finalidades descritas abaixo.</p>
+          <p class="text-white">A coleta de dados tem como objetivo fornecer serviços personalizados, melhorar a experiência do usuário e cumprir obrigações legais.</p>
+          <p class="text-white">Os dados coletados serão armazenados de forma segura e não serão compartilhados com terceiros, exceto quando estritamente necessário para cumprir as finalidades mencionadas.</p>
+          <p class="text-white">Você tem o direito de acessar, corrigir, excluir e portar seus dados pessoais, além de revogar o consentimento a qualquer momento. Para exercer esses direitos ou obter mais informações, entre em contato conosco pelos e-mail fornecido abaixo:</p>
+          <br>
+          <p class="text-white">meuporquinho@suporte.com</p>
+          <br>
+          <p class="text-white">Ao aceitar, confirmo que li e concordo com os termos desta política de privacidade.</p>
+        </div>
+      `,
+      confirmButtonText: 'Aceitar',
+      confirmButtonColor: 'green',
+      showCancelButton: true,
+      cancelButtonText: 'Recusar',
+      cancelButtonColor: 'red',
+      width: '800px',
+      padding: '20px',
+      background: 'black',
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        return true
+      }
+      return false
+    })
+
+    return accepted
+  }
 
   return (
     <>
