@@ -33,7 +33,7 @@ const Main = () => {
       <hr className="my-16" />
       <section className="mt-16">
         <h2 className="text-xl mb-16 text-center w-43">
-          A Meu Porquinho esta aqui para facilitar o seu dia a dia, visualize algumas fotos do nosso produto:
+          A Meu Porquinho está aqui para facilitar o seu dia a dia, visualize algumas fotos do nosso produto:
         </h2>
         <div className="flex justify-center">
           <div className="grid grid-cols-3 gap-4">
