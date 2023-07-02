@@ -33,9 +33,9 @@ const SideMenu = () => {
                     <li>
                         <div className={location.pathname === '/noticias' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
                             <FontAwesomeIcon icon={icon({ name: 'newspaper' })} style={{ color: 'white' }} />
-                            <a href="/dashboard" className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
+                            <button onClick={() => {navigate('/news')}} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
                                 Notícias
-                            </a>
+                            </button>
                         </div>
                     </li>
                     <li>
