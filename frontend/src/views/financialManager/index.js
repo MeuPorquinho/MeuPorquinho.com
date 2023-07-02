@@ -4,9 +4,11 @@ import UserContext from '../../context/UserContext';
 import Input from '../../components/Input';
 import Checkbox from '../../components/Checkbox';
 import api from '../../service/generalService';
+import Swal from 'sweetalert2'
+import { useNavigate } from "react-router-dom";
 
 const FinancialManager = () => {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [bankBalance, setBankBalance] = useState(0);
     const [savedMoney, setSavedMoney] = useState(0);
     const [foodIsChecked, setFoodIsChecked] = useState(false);
@@ -15,6 +17,8 @@ const FinancialManager = () => {
     const [foodCost, setFoodCost] = useState(0);
     const [houseCost, setHouseCost] = useState(0);
     const [transportCost, setTransportCost] = useState(0);
+    const navigate = useNavigate();
+    const [isSaving, setIsSaving] = useState(false);
 
     const handleBankBalanceChange = (e) => {
         setBankBalance(e.target.value);
@@ -71,8 +75,21 @@ const FinancialManager = () => {
         return true;
     }
 
+    const updateUserContext = async () => {
+        const response = await api('/user/', 'GET');
+        for (const key in response.data) {
+            if (response.data.hasOwnProperty(key)) {
+                const element = response.data[key];
+                if (element.username === user.username) {
+                    setUser(element);
+                }
+            }
+        }
+    }
+
     const save = async () => {
         try {
+            setIsSaving(true);
             const isValid = validateFields([bankBalance, savedMoney, foodCost, houseCost, transportCost]);
 
             if (!isValid) {
@@ -90,16 +107,25 @@ const FinancialManager = () => {
                 houseCost: formatNumber(houseCost),
                 transportCost: formatNumber(transportCost),
                 date: new Date()
-            });
+            })
 
+            await updateUserContext();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Valor adicionado com sucesso!',
+                showConfirmButton: false,
+                timer: 1500
+              }).then(() => {
+                navigate('/dashboard');
+            })
+
+            setIsSaving(false);
         } catch (error) {
+            setIsSaving(false);
             console.log('Error: ', error);
         }
     }
-
-    useEffect(() => {
-        console.log('User: ', user);
-    }, [user]);
 
     return (
         <div className='flex'>
@@ -124,10 +150,19 @@ const FinancialManager = () => {
                 <div className="fixed bottom-0 left-0 right-0 flex justify-center mb-4">
                     <button
                         type="submit"
-                        className="w-2/6 py-2 bg-[#252525] text-white rounded-md font-bold text-lg hover:bg-black transition-colors"
+                        className="w-2/6 py-2 bg-[#252525] text-white rounded-md font-bold text-lg hover:bg-black transition-colors flex justify-center items-center"
                         onClick={save}
-                    >
-                        <div className="mx-auto">Salvar</div>
+                    >   
+                        {isSaving ? (
+                            <div className="mx-auto">
+                                <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                </svg>
+                            </div>
+                        ) : (
+                            <div className="mx-auto">Salvar</div>
+                        )}
                     </button>
                 </div>
 

@@ -33,6 +33,29 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const getUserSavedMoneyThroughMonths = (user) => {
+    const today = new Date();
+    const thisMonth = today.getMonth() + 1;
+    const thisYear = today.getFullYear();
+    const months = [];
+    const savedMoney = [];
+
+    for (let i = 1; i <= thisMonth; i++) {
+      if (user?.finances[i]) {
+        const monthfinances = user?.finances[i];
+        if (typeof monthfinances === 'object'){
+          const monthSavedMoney = monthfinances?.savedMoney
+          savedMoney?.push(monthSavedMoney);
+        }
+      } else {
+        savedMoney?.push(0);
+      }
+    }
+
+    return savedMoney;
+  };
+
+
   const data = {
     labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Nov', 'Dez'],
     datasets: [
@@ -44,7 +67,7 @@ const Dashboard = () => {
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(238, 191, 4, 1)',
         hoverBorderColor: 'rgba(238, 191, 4, 1)',
-        data: [1000, 1500, 1200, 2000, 1800, 2500, 3000, 3500, 4000, 4500, 5000, 5500],
+        data: getUserSavedMoneyThroughMonths(user),
       },
     ],
   };
@@ -72,19 +95,29 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      console.log('User: ', user);
-    } else {
+    if (!user) {
       navigate("/login")
     }
   }, [user, navigate]);
 
+  const getThisMonthCosts = (user) => {
+    const today = new Date();
+    const actualMonth = today.getMonth() + 1;
+    const monthFinances = user?.finances[actualMonth]; 
+
+    const arrayCosts = [];
+    arrayCosts.push(monthFinances?.foodCost);
+    arrayCosts.push(monthFinances?.houseCost);
+    arrayCosts.push(monthFinances?.transportCost);
+    return arrayCosts;
+  };
+
 
   const dataAtividades = {
-    labels: ['Red', 'Blue', 'Yellow'],
+    labels: ['Alimentação', 'Moradia', 'Transporte'],
     datasets: [
       {
-        data: [12, 19, 3],
+        data: getThisMonthCosts(user),
         backgroundColor: [
           'rgba(238, 191, 4, 1)',
           'rgba(255, 153, 153, 1)',
@@ -121,19 +154,82 @@ const Dashboard = () => {
     },
   };
 
+  const getUserLastAndCurrentMonthSavings = (user) => {
+    const today = new Date();
+    const actualMonth = today.getMonth() + 1;
+    const lastMonth = actualMonth - 1;
+    let lastMonthFinances = 0;
+    let actualMonthFinances = 0;
+
+    if (user?.finances[lastMonth]) {
+      lastMonthFinances = user?.finances[lastMonth];
+    }
+
+    if (user?.finances[actualMonth]) {
+      actualMonthFinances = user?.finances[actualMonth];
+    }
+
+    const arraySavings = [];
+    arraySavings.push(actualMonthFinances.savedMoney);
+    arraySavings.push(lastMonthFinances.savedMoney);
+    return arraySavings;
+  };
+
   const labelsVertical = ['Mês Atual', 'Mês Anterior'];
 
   const dataVertical = {
     labels: labelsVertical,
     datasets: [
       {
-        label: 'R$',
-        data: [300, 50],
+        label: 'Dinheiro Guardado R$',
+        data: getUserLastAndCurrentMonthSavings(user),
         borderColor: 'rgba(245, 247, 249, 1)',
         hoverBackgroundColor: 'rgba(238, 191, 4, 1)',
         backgroundColor: 'rgba(41, 41, 41, 1)',
       },
     ],
+  };
+
+  const sumUserBankBalance = (user) => {
+    let bankBalance = 0;
+    for (const key in user?.finances) {
+      if (user?.finances.hasOwnProperty(key)) {
+         if (typeof user.finances[key] === 'object') {
+          const element = user.finances[key];
+          bankBalance += element.bankBalance;
+         }
+      }
+  }
+    return bankBalance;
+  };
+
+  const sumUserSavedMoney = (user) => {
+    let savedMoney = 0;
+    for (const key in user?.finances) {
+      if (user?.finances.hasOwnProperty(key)) {
+          if (typeof user.finances[key] === 'object') {
+            const element = user.finances[key];
+            savedMoney += element.savedMoney;
+          }
+      }
+  }
+    return savedMoney;
+  };
+
+  const sumUserSpentMoney = (user) => {
+    let spentMoney = 0;
+    for (const key in user?.finances) {
+      if (user?.finances.hasOwnProperty(key)) {
+          if (typeof user.finances[key] === 'object') {
+            const element = user.finances[key];
+            let foodCost = element.foodCost;
+            let houseCost = element.houseCost;
+            let transportCost = element.transportCost;
+            spentMoney += foodCost + houseCost + transportCost;
+          }
+      }
+  }
+    return spentMoney;
   };
 
   return (
@@ -147,21 +243,39 @@ const Dashboard = () => {
           <div className="w-[240px] h-[200px] bg-[#292929] rounded-xl shadow-lg m-5 flex justify-center items-center">
             <div className="flex flex-col justify-center items-center">
               <FontAwesomeIcon icon={icon({ name: 'wallet' })} size="3x"  style={{ color: 'white' }} />
-              <h1 className="text-[32px] font-bold font-dm-sans text-white">R$ 0,00</h1>
+              <h1 className="text-[32px] font-bold font-dm-sans text-white">
+                R$ {sumUserBankBalance(user)
+                  .toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                })}
+              </h1>
               <h1 className="text-[16px] font-bold font-dm-sans text-white">Conta</h1>
             </div>
           </div>
           <div className="w-[240px] h-[200px] bg-white rounded-xl shadow-lg m-5 flex justify-center items-center">
             <div className="flex flex-col justify-center items-center">
               <FontAwesomeIcon icon={icon({ name: 'credit-card' })} size="3x"  style={{ color: 'black' }} />
-              <h1 className="text-[32px] font-bold font-dm-sans">R$ 0,00</h1>
+              <h1 className="text-[32px] font-bold font-dm-sans">
+                R$ {sumUserSpentMoney(user)
+                  .toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                })}
+              </h1>
               <h1 className="text-[16px] font-bold font-dm-sans">Total Gasto</h1>
             </div>
           </div>
           <div className="w-[240px] h-[200px] bg-white rounded-xl shadow-lg m-5 flex justify-center items-center">
             <div className="flex flex-col justify-center items-center">
               <FontAwesomeIcon icon={icon({ name: 'piggy-bank' })} size="3x"  style={{ color: 'black' }} />
-              <h1 className="text-[32px] font-bold font-dm-sans">R$ 0,00</h1>
+              <h1 className="text-[32px] font-bold font-dm-sans">
+                R$ {sumUserSavedMoney(user)
+                  .toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                })}
+              </h1>
               <h1 className="text-[16px] font-bold font-dm-sans">Total Guardado</h1>
             </div>
           </div>
