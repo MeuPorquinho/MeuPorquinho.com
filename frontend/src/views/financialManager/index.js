@@ -39,14 +39,14 @@ const FinancialManager = () => {
     return (
         <div className='flex'>
             <SideMenu />
-            <div className='ml-10 '>
+            <div className='ml-10 w-9/12'>
                 <h1 className='text-[32px] font-bold font-plus-jakarta-sans mt-10 mb-10'>Gerencie seu dinheiro</h1>
-                <div className='flex space-x-16 p-4 '>
-                    <Input label='Saldo bancário' placeholder='Digite um valor' value={bankBalance} onChange={handleBankBalanceChange} width={96} />
-                    <Input label='Quanto você quer poupar?' placeholder='Digite um valor' value={savedMoney} onChange={handleSavedMoneyChange} width={96} />
+                <div className='text-[14px] font-bold font-plus-jakarta-sans flex space-x-16 p-4'>
+                    <Input label='Saldo bancário' placeholder='Digite um valor' value={bankBalance} onChange={handleBankBalanceChange} width={'full'} />
+                    <Input label='Quanto você quer poupar?' placeholder='Digite um valor' value={savedMoney} onChange={handleSavedMoneyChange} width={'full'} />
                 </div>
-                <div className='flex space-x-16 p-4 '>
-                    <p className='text-[14px] font-bold font-plus-jakarta-sans mt-10 mb-10'>Quais gastos você deseja cadastrar?</p>
+                <div className='flex space-x-14 p-4'>
+                    <p className='text-[16px] font-bold font-plus-jakarta-sans mt-10 mb-10'>Quais gastos você deseja cadastrar?</p>
                     <Checkbox label='Alimentação' onChange={handleFoodCheckbox} />
                     <Checkbox label='Moradia' onChange={handleHouseCheckbox} />
                     <Checkbox label='Transporte' onChange={handleCarCheckbox} />
@@ -56,12 +56,15 @@ const FinancialManager = () => {
                     {houseIsChecked && <Input label='Gastos com moradia' placeholder='Digite um valor' value={savedMoney} onChange={handleSavedMoneyChange} width={'2/6'} />}
                     {carIsChecked && <Input label='Gastos com transporte' placeholder='Digite um valor' value={savedMoney} onChange={handleSavedMoneyChange} width={'2/6'} />}
                 </div>
-                <button
-                    type="submit"
-                    className="flex mx-auto mt-4 w-2/6 py-2 bg-black text-white rounded-md font-bold text-lg hover:bg-gray-800 transition-colors"
-                >
-                    <div className="mx-auto items-center">Salvar</div>
-                </button>
+                <footer class="flex mt-auto bottom-0 fixed w-1/2">
+                    <button
+                        type="submit"
+                        className="ml-auto mb-4 w-2/6 py-2 bg-[#252525] text-white rounded-md font-bold text-lg hover:bg-black transition-colors"
+                    >
+                        <div className="mx-auto">Salvar</div>
+                    </button>
+                </footer>
+
             </div>
         </div>
     );
