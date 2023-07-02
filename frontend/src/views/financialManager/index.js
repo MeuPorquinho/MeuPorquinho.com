@@ -49,7 +49,9 @@ const FinancialManager = () => {
     }
 
     const formatNumber = (value) => {
-        return parseFloat(value?.replace('.', '')?.replace(',', '.')) || 0;
+        if (!value) return 0;
+
+        return parseFloat(value?.replace('.', '')?.replace(',', '.'));
     }
 
     const isBrazilianCurrency = (valor) => {
@@ -72,17 +74,22 @@ const FinancialManager = () => {
     const save = async () => {
         try {
             const isValid = validateFields([bankBalance, savedMoney, foodCost, houseCost, transportCost]);
+
             if (!isValid) {
                 alert('Campo com formato inválido');
                 return;
             }
 
-            await api(`/user/financial-manager?username=${user?.username}`, 'PUT', {
+            const today = new Date();
+            const actualMonth = today.getMonth() + 1;
+
+            await api(`/user/financial-manager?username=${user?.username}&month=${actualMonth}`, 'PUT', {
                 bankBalance: formatNumber(bankBalance),
                 savedMoney: formatNumber(savedMoney),
                 foodCost: formatNumber(foodCost),
                 houseCost: formatNumber(houseCost),
                 transportCost: formatNumber(transportCost),
+                date: new Date()
             });
 
         } catch (error) {
@@ -114,15 +121,15 @@ const FinancialManager = () => {
                     {houseIsChecked && <Input label='Gastos com moradia' placeholder='Digite um valor' value={houseCost} onChange={handleHouseCostChange} width={'2/6'} color={isBrazilianCurrency(bankBalance) ? 'gray-700' : 'red-500'} />}
                     {carIsChecked && <Input label='Gastos com transporte' placeholder='Digite um valor' value={transportCost} onChange={handleTransportCostChange} width={'2/6'} color={isBrazilianCurrency(transportCost) ? 'gray-700' : 'red-500'} />}
                 </div>
-                <footer class="flex mt-auto bottom-0 fixed w-1/2">
+                <div className="fixed bottom-0 left-0 right-0 flex justify-center mb-4">
                     <button
                         type="submit"
-                        className="ml-auto mb-4 w-2/6 py-2 bg-[#252525] text-white rounded-md font-bold text-lg hover:bg-black transition-colors"
+                        className="w-2/6 py-2 bg-[#252525] text-white rounded-md font-bold text-lg hover:bg-black transition-colors"
                         onClick={save}
                     >
                         <div className="mx-auto">Salvar</div>
                     </button>
-                </footer>
+                </div>
 
             </div>
         </div>
