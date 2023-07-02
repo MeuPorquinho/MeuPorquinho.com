@@ -49,9 +49,7 @@ const FinancialManager = () => {
     }
 
     const formatNumber = (value) => {
-        if (!value) return 0;
-
-        return parseFloat(value?.replace('.', '')?.replace(',', '.'));
+        return parseFloat(value?.replace('.', '')?.replace(',', '.')) || 0;
     }
 
     const isBrazilianCurrency = (valor) => {
