@@ -52,7 +52,7 @@ const RegistrationPage = () => {
         "lastName": e.target.elements.lastName.value,
         "password": password,
       })
-      console.log(response);
+
       let statusCode = response.status;
       if (statusCode === 201) {
         const userDate = response.data.user;
@@ -66,22 +66,12 @@ const RegistrationPage = () => {
   }
 
   const lgpdTermsModal = async (data) => {
-    const name = data.name.value;
-    const lastName = data.lastName.value;
-
     const accepted = await Swal.fire({
       title: '<strong class="text-white">Termos de Uso</strong>',
       titleColor: '#fff',
       html: `
         <div class="text-left">
-          <p class="text-white">Eu, ${name} ${lastName}, declaro que li e concordo com os termos desta política de privacidade. Autorizo expressamente a coleta, armazenamento, processamento e compartilhamento dos meus dados pessoais fornecidos neste formulário para as finalidades descritas abaixo.</p>
-          <p class="text-white">A coleta de dados tem como objetivo fornecer serviços personalizados, melhorar a experiência do usuário e cumprir obrigações legais.</p>
-          <p class="text-white">Os dados coletados serão armazenados de forma segura e não serão compartilhados com terceiros, exceto quando estritamente necessário para cumprir as finalidades mencionadas.</p>
-          <p class="text-white">Você tem o direito de acessar, corrigir, excluir e portar seus dados pessoais, além de revogar o consentimento a qualquer momento. Para exercer esses direitos ou obter mais informações, entre em contato conosco pelos e-mail fornecido abaixo:</p>
-          <br>
-          <p class="text-white">meuporquinho@suporte.com</p>
-          <br>
-          <p class="text-white">Ao aceitar, confirmo que li e concordo com os termos desta política de privacidade.</p>
+          <iframe src="https://docs.google.com/viewer?srcid=1oVvY4BG7pxM__kvLaCzZYFA1NITu55e-9gnSPg41H4s&pid=explorer&efh=false&a=v&chrome=false&embedded=true" style="width:100%; height:400px;" frameborder="0"></iframe> 
         </div>
       `,
       confirmButtonText: 'Aceitar',
