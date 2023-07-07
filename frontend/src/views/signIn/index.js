@@ -61,6 +61,11 @@ const RegistrationPage = () => {
       }
     } catch (error) {
       console.log(e);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ocorreu um erro ao realizar o cadastro, tente novamente mais tarde.',
+      })
       setErrorRequest(true);
     }
   }
@@ -97,7 +102,6 @@ const RegistrationPage = () => {
     <>
       <div className="flex flex-col min-h-screen">
         <Header />
-        {errorRequest && <p className="text-red-500 mt-2">Erro ao cadastrar usuário.</p>}
         <div className="flex-grow flex items-center justify-center mt-5 mb-5 h-200 bg-white">
           <form
             onSubmit={handleSubmit}

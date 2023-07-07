@@ -72,7 +72,7 @@ module.exports = {
             }
 
             const userInfo = await collection.findOne({ username });
-            const actualMonthFinances = userInfo.finances[month];
+            const actualMonthFinances = userInfo && userInfo?.finances && userInfo?.finances[month] ? userInfo?.finances[month] : null;
 
             if (actualMonthFinances) {
                 bankBalance = bankBalance + actualMonthFinances.bankBalance;

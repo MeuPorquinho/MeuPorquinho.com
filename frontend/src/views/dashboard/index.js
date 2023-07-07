@@ -41,16 +41,17 @@ const Dashboard = () => {
     const savedMoney = [];
 
     for (let i = 1; i <= thisMonth; i++) {
-      if (user?.finances[i]) {
-        const monthfinances = user?.finances[i];
-        if (typeof monthfinances === 'object'){
-          const monthSavedMoney = monthfinances?.savedMoney
+      if (user && user.finances && user.finances[i]) {
+        const monthFinances = user.finances[i];
+        if (typeof monthFinances === 'object') {
+          const monthSavedMoney = monthFinances.savedMoney;
           savedMoney?.push(monthSavedMoney);
         }
       } else {
         savedMoney?.push(0);
       }
     }
+    
 
     return savedMoney;
   };
@@ -103,7 +104,7 @@ const Dashboard = () => {
   const getThisMonthCosts = (user) => {
     const today = new Date();
     const actualMonth = today.getMonth() + 1;
-    const monthFinances = user?.finances[actualMonth]; 
+    const monthFinances = user?.finances?.[actualMonth] ? user.finances[actualMonth] : 0;
 
     const arrayCosts = [];
     arrayCosts.push(monthFinances?.foodCost);
@@ -161,12 +162,12 @@ const Dashboard = () => {
     let lastMonthFinances = 0;
     let actualMonthFinances = 0;
 
-    if (user?.finances[lastMonth]) {
-      lastMonthFinances = user?.finances[lastMonth];
+    if (user && user.finances && user?.finances[lastMonth]) {
+      lastMonthFinances = user?.finances[lastMonth] ? user.finances[lastMonth] : 0;
     }
 
-    if (user?.finances[actualMonth]) {
-      actualMonthFinances = user?.finances[actualMonth];
+    if (user && user.finances && user?.finances[actualMonth]) {
+      actualMonthFinances = user?.finances[actualMonth] ? user.finances[actualMonth] : 0;
     }
 
     const arraySavings = [];

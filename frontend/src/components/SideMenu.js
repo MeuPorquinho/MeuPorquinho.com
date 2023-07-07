@@ -46,6 +46,14 @@ const SideMenu = () => {
                             </button>
                         </div>
                     </li>
+                    <li>
+                        <div className={location.pathname === '/manager' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
+                            <FontAwesomeIcon icon={icon({ name: 'sign-out-alt' })} style={{ color: 'white' }} />
+                            <button onClick={() => {navigate('/')}} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
+                                Sair
+                            </button>
+                        </div>
+                    </li>
                 </ul>
 
                 <div className="absolute bottom-0 w-72 pb-10">
