@@ -12,7 +12,7 @@ const SideMenu = () => {
 
     return (
         <aside className="flex flex-col min-h-screen ">
-            <div className="bg-[#252525] w-72 min-h-screen items-center justify-center">
+            <div className="bg-[#252525] w-72 min-h-screen items-center justify-center h-[100%]">
                 <img
                     src="https://i.imgur.com/gkAgCgk.png"
                     alt="Meu Porquinho logo"
@@ -47,28 +47,27 @@ const SideMenu = () => {
                         </div>
                     </li>
                     <li>
-                        <div className={location.pathname === '/manager' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
+                        <div className="bg-[#252525] h-16 flex items-center justify-center">
                             <FontAwesomeIcon icon={icon({ name: 'sign-out-alt' })} style={{ color: 'white' }} />
                             <button onClick={() => {navigate('/')}} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
                                 Sair
                             </button>
                         </div>
                     </li>
+                    <li>
+                        <div className="flex flex-col items-center justify-center">
+                            <FontAwesomeIcon icon={icon({ name: 'user' })} style={{ color: 'white' }} />
+
+                            <div className="pt-1">
+                                <p className="text-gray-300 text-lg font-dm-sans">{user?.firstName + ' ' + user?.lastName}</p>
+                            </div>
+
+                            <div className="pt-1">
+                                <p className="text-gray-400 text-sm font-dm-sans">{user?.username}</p>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
-
-                <div className="absolute bottom-0 w-72 pb-10">
-                    <div className="flex flex-col items-center justify-center">
-                        <FontAwesomeIcon icon={icon({ name: 'user' })} style={{ color: 'white' }} />
-
-                        <div className="pt-1">
-                            <p className="text-gray-300 text-lg font-dm-sans">{user?.firstName + ' ' + user?.lastName}</p>
-                        </div>
-
-                        <div className="pt-1">
-                            <p className="text-gray-400 text-sm font-dm-sans">{user?.username}</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </aside>
     )
