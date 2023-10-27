@@ -131,5 +131,40 @@ module.exports = {
         } finally {
             await client.close();
         }
-    }
+    },
+
+    async changePassword(req, res) {
+        try {
+            const { username, password } = req.body;
+
+            const collection = await databaseConnect();
+            const hashedPassword = await bcrypt.hash(password, 10);
+            await collection.updateOne({ username }, { $set: { password: hashedPassword } });
+
+            return res.status(200).json({ message: 'Senha alterada com sucesso' });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Erro ao alterar senha' });
+        } finally {
+            await client.close();
+        }
+    },
+
+    async changeEmail(req, res) {
+        try {
+            const { username, email } = req.body;
+
+            const collection = await databaseConnect();
+
+            await collection.updateOne({ username }, { $set: { username: email } }); // username é o e-mail
+
+            return res.status(200).json({ message: 'E-mail alterado com sucesso' });
+        }
+        catch {
+            console.error(error);
+            return res.status(500).json({ message: 'Erro ao alterar e-mail' });
+        } finally {
+            await client.close();
+        }
+    },
 }
