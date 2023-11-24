@@ -16,6 +16,8 @@ import { Bar } from 'react-chartjs-2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { Doughnut } from 'react-chartjs-2';
+import * as XLSX from 'xlsx';
+import Swal from 'sweetalert2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -233,12 +235,56 @@ const Dashboard = () => {
     return spentMoney;
   };
 
+  const handleExportExcel = () => {
+    const workbook = XLSX.utils.book_new();
+
+    const dataByMonths = Object.entries(user.finances).map(([month, data]) => ({
+      Mês: `Mês ${month}`, // Adicionando a separação por meses
+      'Saldo Bancário': data.bankBalance,
+      'Dinheiro Guardado': data.savedMoney,
+      'Custo Alimentação': data.foodCost,
+      'Custo Moradia': data.houseCost,
+      'Custo Transporte': data.transportCost,
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(dataByMonths);
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Gastos');
+
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    const fileName = 'relatorio_gastos.xlsx';
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(data);
+    link.download = fileName;
+    link.click();
+  };
+  
+  const handleExportConfirmation = () => {
+    Swal.fire({
+      title: 'Deseja exportar um excel com seus gastos?',
+      showCancelButton: true,
+      confirmButtonText: 'Exportar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#F87171',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await handleExportExcel();
+      }
+    });
+  };
+
   return (
     <div className="flex">
       <SideMenu />
       <div className="ml-10 pr-10">
         <div className="pt-10 h-20 pb-4 flex items-center">
-          <h1 className="pl-4 text-[32px] font-bold font-plus-jakarta-sans">Dashboard</h1>
+          <h1 className="pl-4 text-[32px] font-bold font-plus-jakarta-sans pr-4">Dashboard</h1>
+          <button onClick={handleExportConfirmation} className="bg-rose-300 hover:bg-rose-400 text-white font-bold py-2 px-4 rounded mt-3">
+            <FontAwesomeIcon icon={icon({ name: 'download' })} size="2x"  style={{ color: 'black' }} />
+          </button>
         </div>
         <div className="flex flex-row flex-wrap items-center">
           <div className="w-[240px] h-[200px] bg-[#292929] rounded-xl shadow-lg m-5 flex justify-center items-center">
@@ -285,17 +331,17 @@ const Dashboard = () => {
           <Bar data={data} height={312} width={825} options={options}/>
         </div>
       </div>
-      <div className="flex flex-col max-w-screen-sm">
-        <div className="pt-32 h-20 pb-4 flex justify-center items-center">
-          <h1 className="text-[32px] font-bold font-dm-sans">Atividade</h1>
+      <div className="max-w-screen-lg mx-auto">
+        <div className="pt-20 pb-4 text-center">
+          <h1 className="text-3xl font-bold font-dm-sans">Atividade</h1>
         </div>
-        <div className="pt-2">
-            <Doughnut data={dataAtividades} />
+        <div className="pt-2 text-center">
+          <Doughnut data={dataAtividades} options={{ responsive: true }} />
         </div>
-        <div className="mt-6 flex flex-col items-center bg-[#F5F7F9]">
+        <div className="mt-6 text-center bg-[#F5F7F9]">
           <Bar options={optionsVertical} data={dataVertical} />
         </div>
-      </div> 
+      </div>
     </div>
   );
 };
