@@ -65,7 +65,7 @@ const Dashboard = () => {
       {
         label: 'R$',
         labelColor: 'rgba(255, 255, 255, 1)',
-        backgroundColor: 'rgba(245, 247, 249, 1)',
+        backgroundColor: 'rgba(233, 233, 233, 1)',
         borderColor: 'rgba(245, 247, 249, 1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(238, 191, 4, 1)',
