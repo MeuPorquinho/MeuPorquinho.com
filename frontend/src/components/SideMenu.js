@@ -25,7 +25,7 @@ const SideMenu = () => {
                     <li>
                         <div className={location.pathname === '/dashboard' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
                             <FontAwesomeIcon icon={icon({ name: 'home' })} style={{ color: 'white' }} />
-                            <button onClick={() => {navigate('/dashboard')}} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
+                            <button onClick={() => { navigate('/dashboard') }} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
                                 Dashboard
                             </button>
                         </div>
@@ -33,7 +33,7 @@ const SideMenu = () => {
                     <li>
                         <div className={location.pathname === '/noticias' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
                             <FontAwesomeIcon icon={icon({ name: 'newspaper' })} style={{ color: 'white' }} />
-                            <button onClick={() => {navigate('/news')}} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
+                            <button onClick={() => { navigate('/news') }} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
                                 Notícias
                             </button>
                         </div>
@@ -41,7 +41,7 @@ const SideMenu = () => {
                     <li>
                         <div className={location.pathname === '/manager' ? "bg-[#3F3F3F] h-16 flex items-center justify-center" : "bg-[#252525] h-16 flex items-center justify-center"}>
                             <FontAwesomeIcon icon={icon({ name: 'user-cog' })} style={{ color: 'white' }} />
-                            <button onClick={() => {navigate('/manager')}} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
+                            <button onClick={() => { navigate('/manager') }} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
                                 Gerenciador
                             </button>
                         </div>
@@ -49,8 +49,16 @@ const SideMenu = () => {
                     <li>
                         <div className="bg-[#252525] h-16 flex items-center justify-center">
                             <FontAwesomeIcon icon={icon({ name: 'sign-out-alt' })} style={{ color: 'white' }} />
-                            <button onClick={() => {navigate('/')}} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
+                            <button onClick={() => { navigate('/') }} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
                                 Sair
+                            </button>
+                        </div>
+                    </li>
+                    <li>
+                        <div className="bg-[#252525] h-16 flex items-center justify-center">
+                            <FontAwesomeIcon icon={icon({ name: 'user-pen' })} style={{ color: 'white' }} />
+                            <button onClick={() => { navigate('/edit-profile') }} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
+                                Editar perfil
                             </button>
                         </div>
                     </li>
