@@ -48,17 +48,17 @@ const SideMenu = () => {
                     </li>
                     <li>
                         <div className="bg-[#252525] h-16 flex items-center justify-center">
-                            <FontAwesomeIcon icon={icon({ name: 'sign-out-alt' })} style={{ color: 'white' }} />
-                            <button onClick={() => { navigate('/') }} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
-                                Sair
+                            <FontAwesomeIcon icon={icon({ name: 'user-pen' })} style={{ color: 'white' }} />
+                            <button onClick={() => { navigate('/edit-profile') }} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
+                                Editar perfil
                             </button>
                         </div>
                     </li>
                     <li>
                         <div className="bg-[#252525] h-16 flex items-center justify-center">
-                            <FontAwesomeIcon icon={icon({ name: 'user-pen' })} style={{ color: 'white' }} />
-                            <button onClick={() => { navigate('/edit-profile') }} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
-                                Editar perfil
+                            <FontAwesomeIcon icon={icon({ name: 'sign-out-alt' })} style={{ color: 'white' }} />
+                            <button onClick={() => { navigate('/') }} className="pl-2 text-gray-300 hover:text-white text-lg font-dm-sans">
+                                Sair
                             </button>
                         </div>
                     </li>
